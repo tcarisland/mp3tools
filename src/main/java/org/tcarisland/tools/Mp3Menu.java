@@ -1,5 +1,9 @@
 package org.tcarisland.tools;
 
+import java.awt.event.WindowEvent;
+import java.io.File;
+
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -23,9 +27,20 @@ public class Mp3Menu extends JMenuBar {
 	private JMenu initFileMenu() {
 		JMenu fileMenu = new JMenu(Labels.getLabel("general.file"));
 		JMenuItem open = new JMenuItem(Labels.getLabel("general.open"));
+		open.addActionListener(u -> {
+			JFileChooser chooser = new JFileChooser();
+			int status = chooser.showOpenDialog(Mp3ToolsFrame.getInstance());
+			if(status == JFileChooser.APPROVE_OPTION) {
+				File file = chooser.getSelectedFile();
+				Mp3ToolsMainPanel.getInstance().onOpenFile(file);
+			}
+		});
 		JMenuItem exit = new JMenuItem(Labels.getLabel("general.exit"));
-		System.out.println(open.getText());
-		System.out.println(exit.getText());
+		exit.addActionListener(u -> {
+			Mp3ToolsFrame frame = Mp3ToolsFrame.getInstance();
+			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+			System.exit(0);
+		});
 		fileMenu.add(open);
 		fileMenu.add(exit);
 		return fileMenu;

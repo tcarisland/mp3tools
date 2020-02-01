@@ -1,6 +1,7 @@
 package org.tcarisland.tools;
 
 import java.awt.GridLayout;
+import java.io.File;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,6 +27,10 @@ public class Mp3ToolsMainPanel extends JPanel {
 			System.out.printf("adding label %s \n", label.getText());
 			this.add(label);
 		}
+	}
+
+	public void onOpenFile(File file) {
+		System.out.println(file.getAbsolutePath());
 	}
 	
 }

@@ -1,5 +1,6 @@
 package org.tcarisland.tools.i18n;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -19,20 +20,16 @@ public class Labels {
 	}
 	
 	public static String getLabel(String key) {
-		return resourceBundle.getString(key);
+		try {
+			return new String(resourceBundle.getString(key).getBytes("ISO-8859-1"), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return resourceBundle.getString(key);
+		}
 	}
 	
 	public static String getLabel(Locale locale, String key) {
 		return ResourceBundle.getBundle("Labels", locale).getString(key);
-	}
-	
-	public static void main(String args[]) {
-		Arrays.asList("no", "en").stream().forEach(u -> {
-			Locale locale = Locale.forLanguageTag(u);
-			String label = Labels.getLabel(locale, "file");
-			System.out.printf("%s %s \n", locale, label);
-			
-		});
 	}
 
 }

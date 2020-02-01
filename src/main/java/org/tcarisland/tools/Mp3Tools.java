@@ -13,7 +13,6 @@ import org.tcarisland.tools.utils.Mp3ToolsSwingUtils;
 public class Mp3Tools 
 {
     public static void main( String[] args ) {
-    	System.setProperty("file.encoding", "UTF-8");
     	Labels.init(Locale.forLanguageTag("no"));
     	Mp3ToolsFrame frame = Mp3ToolsFrame.getInstance();
     	if(Constants.MAC_OS_X) {
