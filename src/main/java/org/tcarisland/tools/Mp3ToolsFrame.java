@@ -20,6 +20,7 @@ public class Mp3ToolsFrame extends JFrame {
 		this.setSize(WIDTH, HEIGHT);
 		this.setTitle("Mp3 Tools");
 		this.setContentPane(Mp3ToolsMainPanel.getInstance());
+		this.setJMenuBar(Mp3Menu.getInstance());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	

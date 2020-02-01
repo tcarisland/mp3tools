@@ -1,0 +1,30 @@
+[
+	{
+		"key": "general.file",
+		"values": {
+			"no": "Fil",
+			"en": "File"
+		}
+	},
+	{
+		"key": "general.edit",
+		"values": {
+			"no": "Rediger",
+			"en": "Edit"
+		}
+	},
+	{
+		"key": "general.open",
+		"values": {
+			"no": "Åpne",
+			"en": "Open"
+		}
+	},
+	{
+		"key": "general.exit",
+		"values": {
+			"no": "Avslutt",
+			"en": "Exit"
+		}
+	}
+]
