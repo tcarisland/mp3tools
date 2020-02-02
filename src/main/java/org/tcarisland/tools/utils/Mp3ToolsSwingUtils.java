@@ -14,5 +14,5 @@ public class Mp3ToolsSwingUtils {
 			e.printStackTrace();
 		}
 	}
-
+	
 }

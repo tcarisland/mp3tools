@@ -15,9 +15,11 @@ public class Labels {
 	private static Locale defaultLocale = Locale.ENGLISH;
 	private static Locale currentLocale = defaultLocale;
 	private static Set<Locale> supportedLocales = (Set<Locale>) Arrays.asList("no", "en").stream().map(u -> Locale.forLanguageTag(u)).collect(Collectors.toSet());
+	private static ResourceBundle currentBundle;
 	
 	public static void init(Locale locale) {
 		currentLocale = supportedLocales.contains(locale) ? locale : defaultLocale;
+		currentBundle = ResourceBundle.getBundle("Labels", locale);
 	}
 	
 	public static String getLabel(String key) {
@@ -25,16 +27,18 @@ public class Labels {
 	}
 	
 	private static String getLabelWithEncoding(String key, Locale locale) {
+		ResourceBundle bundle = locale.equals(currentLocale) ? currentBundle : ResourceBundle.getBundle("Labels", locale);
 		try {
-			return new String(ResourceBundle.getBundle("Labels", locale).getString(key).getBytes("ISO-8859-1"), "UTF-8");
+			return new String(bundle.getString(key).getBytes("ISO-8859-1"), "UTF-8");
 		} catch (MissingResourceException |UnsupportedEncodingException e) {
 			return null;
 		}
 	}
 
 	private static String getLabelWithLocale (String key, Locale locale) {
+		ResourceBundle bundle = locale.equals(currentLocale) ? currentBundle : ResourceBundle.getBundle("Labels", locale);
 		try {
-			return ResourceBundle.getBundle("Labels", locale).getString(key);
+			return bundle.getString(key);
 		} catch (MissingResourceException e) {
 			return null;
 		}

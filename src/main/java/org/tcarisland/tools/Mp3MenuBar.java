@@ -10,18 +10,28 @@ import javax.swing.JMenuItem;
 
 import org.tcarisland.tools.i18n.Label;
 
-public class Mp3Menu extends JMenuBar {
+public class Mp3MenuBar extends JMenuBar {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Mp3Menu handle;
+	private static Mp3MenuBar handle;
 	
-	public static Mp3Menu getInstance() {
-		return handle != null ? handle : new Mp3Menu();
+	public static Mp3MenuBar getInstance() {
+		return handle != null ? handle : new Mp3MenuBar();
 	}
 	
-	private Mp3Menu() {
+	private Mp3MenuBar() {
 		this.add(initFileMenu());
+		this.add(initEditMenu());
+	}
+	
+	private JMenu initEditMenu() {
+		JMenu editMenu = new JMenu(Label.EDIT.getLabel());
+		JMenuItem copy = new JMenu(Label.COPY.getLabel());
+		JMenuItem paste = new JMenu(Label.PASTE.getLabel());
+		editMenu.add(copy);
+		editMenu.add(paste);
+		return editMenu;
 	}
 	
 	private JMenu initFileMenu() {

@@ -1,13 +1,13 @@
 package org.tcarisland.tools.i18n;
 
-import java.util.Locale;
-
 public enum Label {
 	FILE("general.file"),
 	EDIT("general.edit"),
 	OPEN("general.open"),
 	EXIT("general.exit"),
-	ABOUT("general.about");
+	ABOUT("general.about"),
+	COPY("general.copy"),
+	PASTE("general.paste");
 	
 	private final String key;
 
@@ -18,4 +18,5 @@ public enum Label {
 	Label(String key) {
 		this.key = key;
 	}
+	
 }

@@ -7,6 +7,14 @@
 		"no": "Rediger",
 		"en": "Edit"
 	},
+	"general.copy": {
+		"no": "Kopier",
+		"en": "Copy"
+	},
+	"general.paste": {
+		"no": "Lim inn",
+		"en": "Paste"
+	},
 	"general.open": {
 		"no": "Åpne",
 		"en": "Open"
