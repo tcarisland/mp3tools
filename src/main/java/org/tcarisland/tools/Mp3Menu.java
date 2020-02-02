@@ -8,7 +8,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import org.tcarisland.tools.i18n.Labels;
+import org.tcarisland.tools.i18n.Label;
 
 public class Mp3Menu extends JMenuBar {
 
@@ -25,8 +25,8 @@ public class Mp3Menu extends JMenuBar {
 	}
 	
 	private JMenu initFileMenu() {
-		JMenu fileMenu = new JMenu(Labels.getLabel("general.file"));
-		JMenuItem open = new JMenuItem(Labels.getLabel("general.open"));
+		JMenu fileMenu = new JMenu(Label.FILE.getLabel());
+		JMenuItem open = new JMenuItem(Label.OPEN.getLabel());
 		open.addActionListener(u -> {
 			JFileChooser chooser = new JFileChooser();
 			int status = chooser.showOpenDialog(Mp3ToolsFrame.getInstance());
@@ -35,7 +35,7 @@ public class Mp3Menu extends JMenuBar {
 				Mp3ToolsMainPanel.getInstance().onOpenFile(file);
 			}
 		});
-		JMenuItem exit = new JMenuItem(Labels.getLabel("general.exit"));
+		JMenuItem exit = new JMenuItem(Label.EXIT.getLabel());
 		exit.addActionListener(u -> {
 			Mp3ToolsFrame frame = Mp3ToolsFrame.getInstance();
 			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));

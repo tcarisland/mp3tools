@@ -14,5 +14,9 @@
 	"general.exit": {
 		"no": "Avslutt",
 		"en": "Exit"
+	},
+	"general.about" : {
+		"no" : "Om",
+		"en" : "About"
 	}
 }

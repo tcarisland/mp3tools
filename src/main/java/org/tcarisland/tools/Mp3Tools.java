@@ -13,7 +13,7 @@ import org.tcarisland.tools.utils.Mp3ToolsSwingUtils;
 public class Mp3Tools 
 {
     public static void main( String[] args ) {
-    	Labels.init(Locale.forLanguageTag("no"));
+    	Labels.init(Locale.forLanguageTag("sv"));
     	Mp3ToolsFrame frame = Mp3ToolsFrame.getInstance();
     	if(Constants.MAC_OS_X) {
     		Mp3ToolsSwingUtils.enableOSXFullscreen(frame);

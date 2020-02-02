@@ -17,16 +17,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class LabelParser {
 
-	HashSet<Locale> locales;
 	public static String FILENAME = "Labels";
 	
-	public LabelParser() {
+	public static void parseLabels() {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(String.format("%s.json", FILENAME));
 			Map<String, Map<Locale, String>> labelMap = mapper.readValue(inputStream, new TypeReference<Map<String, Map<Locale, String>>>() {});
 			labelMap.keySet().stream().forEach(u -> System.out.println(u));
-			locales = new HashSet<Locale>();
+			HashSet<Locale> locales = new HashSet<Locale>();
 			labelMap.values().stream().forEach(u -> locales.addAll(u.keySet()));
 			Map<Locale, PrintWriter> outputMap = new HashMap<Locale, PrintWriter>();
 			for (Locale locale : locales) {
@@ -44,7 +43,7 @@ public class LabelParser {
 	}
 
 	public static void main(String args[]) {
-		new LabelParser();
+		LabelParser.parseLabels();
 	}
 
 }
