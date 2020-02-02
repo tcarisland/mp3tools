@@ -1,0 +1,18 @@
+{
+	"general.file": {
+		"no": "Fil",
+		"en": "File"
+	},
+	"general.edit": {
+		"no": "Rediger",
+		"en": "Edit"
+	},
+	"general.open": {
+		"no": "Åpne",
+		"en": "Open"
+	},
+	"general.exit": {
+		"no": "Avslutt",
+		"en": "Exit"
+	}
+}
