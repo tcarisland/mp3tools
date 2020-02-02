@@ -1,3 +1,6 @@
 .project
 .classpath
+.settings
+.wtpmodules
 target
+bin
