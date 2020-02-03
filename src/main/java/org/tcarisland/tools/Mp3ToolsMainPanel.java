@@ -14,6 +14,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -35,6 +36,8 @@ public class Mp3ToolsMainPanel extends JPanel {
 		handle = handle != null ? handle : new Mp3ToolsMainPanel();
 		return handle;
 	}
+
+	final Dimension labelSize = new Dimension(150, 20);
 	
 	public void setTag(ID3v2 tag) {
 		this.invalidate();
@@ -45,12 +48,12 @@ public class Mp3ToolsMainPanel extends JPanel {
 		Border border = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.DARK_GRAY),BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		for(Object obj[] : data) {
 			JPanel panel = new JPanel(new BorderLayout());
-			JTextField textField = new JTextField("" + obj[0]);
+			JTextArea textField = new JTextArea("" + obj[0]);
 			textField.setEditable(false);
 			JLabel label = new JLabel("" + obj[1]);
-			label.setSize(300, 20);
-			label.setPreferredSize(new Dimension(300, 20));
-			label.setMinimumSize(new Dimension(300, 20));
+			label.setSize(labelSize);
+			label.setPreferredSize(labelSize);
+			label.setMinimumSize(labelSize);
 			List<JComponent> comps = Arrays.asList(label, textField);
 			comps.forEach(u -> u.setBorder(border));
 			panel.add(label, BorderLayout.WEST);
