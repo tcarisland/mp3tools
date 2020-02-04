@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
+import org.apache.commons.lang3.StringUtils;
 import org.tcarisland.tools.utils.Mp3TagList;
 import org.tcarisland.tools.utils.TagFrame;
 
@@ -26,6 +28,8 @@ import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.NotSupportedException;
 import com.mpatric.mp3agic.UnsupportedTagException;
+
+import lombok.Getter;
 
 public class Mp3ToolsMainPanel extends JPanel {
 
@@ -44,12 +48,16 @@ public class Mp3ToolsMainPanel extends JPanel {
 
   private Mp3File mp3File;
 
+  @Getter
+  private List<Mp3TagTextField> textFields = new ArrayList<>();
+
 	public void setTag(ID3v2 tag) {
 	  if(scrollPane != null) {
 	    this.remove(scrollPane);
 	    scrollPane.invalidate();
 	  }
 		this.invalidate();
+		textFields.clear();
 		List<TagFrame<?>> data;
     try {
       data = Mp3TagList.getTagList(tag);
@@ -64,6 +72,7 @@ public class Mp3ToolsMainPanel extends JPanel {
 		for(TagFrame<?> tagFrame : data) {
 			JPanel panel = new JPanel(new BorderLayout());
       Mp3TagTextField textField = new Mp3TagTextField(tagFrame, tag);
+      textFields.add(textField);
 			JLabel label = new JLabel("" + tagFrame.getName());
 			JLabel typeLabel = new JLabel(tagFrame.getGenericType().getSimpleName());
 			List<JComponent> comps = Arrays.asList(label, textField, typeLabel);
@@ -99,12 +108,19 @@ public class Mp3ToolsMainPanel extends JPanel {
     ID3v2 tag = mp3File.getId3v2Tag();
     tag = tag != null ? tag : new ID3v23Tag();
     tag.setComment("This is another comment " + new Date());
-    mp3File.removeId3v1Tag();
+    for(Mp3TagTextField textField : textFields) {
+      if(textField.getTagFrame().getUpdater() != null) {
+        tag = textField.getTagFrame().getUpdater().updateTagData(tag, textField.getText());
+      }
+    }
     mp3File.removeId3v2Tag();
     mp3File.setId3v2Tag(tag);
-    mp3File.removeCustomTag();
     try {
-      mp3File.save(file.getAbsolutePath());
+      String absolutePath = file.getAbsolutePath();
+      if(!StringUtils.endsWith(absolutePath, ".mp3")) {
+        absolutePath = absolutePath + ".mp3";
+      }
+      mp3File.save(absolutePath);
     } catch (NotSupportedException | IOException e) {
       e.printStackTrace();
     }

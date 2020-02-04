@@ -67,6 +67,7 @@ public class Mp3MenuBar extends JMenuBar {
 			System.exit(0);
 		});
 		fileMenu.add(open);
+		fileMenu.add(save);
 		fileMenu.add(exit);
 		return fileMenu;
 	}

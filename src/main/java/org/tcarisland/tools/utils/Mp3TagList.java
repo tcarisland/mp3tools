@@ -28,17 +28,17 @@ public class Mp3TagList {
 		      new TagFrame<String>(
 		          "AudiofileUrl",
 		          u -> u.getAudiofileUrl(),
-		          null,
+		          (a, b) -> { a.setAudiofileUrl(b) ; return a; },
 		          String.class),
 		      new TagFrame<ArrayList<ID3v2ChapterTOCFrameData>>(
 		          "ChapterTOC",
 		          u -> u.getChapterTOC(),
-		          (a, b) -> {a.setChapterTOC(b); return a;},
+		          null,
 		          ArrayList.class),
 		      new TagFrame<Boolean>(
 		          "ObseleteFormat",
 		          u -> u.getObseleteFormat(),
-		          (a, b) -> a,
+		          null,
 		          Boolean.class) ,
 		      new TagFrame<String>(
 		          "PartOfSet",
@@ -48,7 +48,7 @@ public class Mp3TagList {
 		      new TagFrame<String>(
 		          "Title",
 		          u -> u.getTitle(),
-		          (a, b) -> {a.setTitle(b); return a;},
+		          (a, b) -> { a.setTitle(b); return a;},
 		          String.class),
 		      new TagFrame<String>("RadiostationUrl", u -> u.getRadiostationUrl(), null, String.class),
 		      new TagFrame<String>("AudioSourceUrl", u -> u.getAudioSourceUrl(), null, String.class),
@@ -56,7 +56,11 @@ public class Mp3TagList {
 		      new TagFrame<String>("Encoder", u -> u.getEncoder(), null, String.class),
 		      new TagFrame<String>("ArtistUrl", u -> u.getArtistUrl(), null, String.class),
 		      new TagFrame<String>("Date", u -> u.getDate(), null, String.class),
-		      new TagFrame<String>("Comment", u -> u.getComment(), null, String.class),
+		      new TagFrame<String>(
+		          "Comment",
+		          u -> u.getComment(),
+		          (a, b) -> {a.setComment(b); return a;},
+		          String.class),
 		      new TagFrame<String>("GenreDescription", u -> u.getGenreDescription(), null, String.class),
 		      new TagFrame<String>("PaymentUrl", u -> u.getPaymentUrl(), null, String.class),
 		      new TagFrame<String>("Album", u -> u.getAlbum(), null, String.class),
