@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -14,14 +15,16 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
 import org.tcarisland.tools.utils.Mp3TagList;
+import org.tcarisland.tools.utils.TagFrame;
 
 import com.mpatric.mp3agic.ID3v2;
+import com.mpatric.mp3agic.ID3v23Tag;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.NotSupportedException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
 public class Mp3ToolsMainPanel extends JPanel {
@@ -39,29 +42,40 @@ public class Mp3ToolsMainPanel extends JPanel {
 
   private JScrollPane scrollPane;
 
+  private Mp3File mp3File;
+
 	public void setTag(ID3v2 tag) {
 	  if(scrollPane != null) {
 	    this.remove(scrollPane);
 	    scrollPane.invalidate();
 	  }
 		this.invalidate();
-		List<Object[]> data = Mp3TagList.getTagList(tag);
+		List<TagFrame<?>> data;
+    try {
+      data = Mp3TagList.getTagList(tag);
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+      return;
+    }
 		this.setLayout(new BorderLayout());
 		JPanel contentPanel = new JPanel();
 		contentPanel.setLayout(new GridLayout(data.size(), 1));
 		Border border = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.DARK_GRAY),BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		for(Object obj[] : data) {
+		for(TagFrame<?> tagFrame : data) {
 			JPanel panel = new JPanel(new BorderLayout());
-			JTextArea textField = new JTextArea("" + obj[0]);
-			textField.setEditable(false);
-			JLabel label = new JLabel("" + obj[1]);
-			label.setSize(labelSize);
-			label.setPreferredSize(labelSize);
-			label.setMinimumSize(labelSize);
-			List<JComponent> comps = Arrays.asList(label, textField);
+      Mp3TagTextField textField = new Mp3TagTextField(tagFrame, tag);
+			JLabel label = new JLabel("" + tagFrame.getName());
+			JLabel typeLabel = new JLabel(tagFrame.getGenericType().getSimpleName());
+			List<JComponent> comps = Arrays.asList(label, textField, typeLabel);
 			comps.forEach(u -> u.setBorder(border));
+      comps.stream().filter(u -> u instanceof JLabel).forEach(x -> {
+        x.setSize(labelSize);
+        x.setPreferredSize(labelSize);
+        x.setMinimumSize(labelSize);
+      });
 			panel.add(label, BorderLayout.WEST);
 			panel.add(textField, BorderLayout.CENTER);
+			panel.add(typeLabel, BorderLayout.EAST);
 			contentPanel.add(panel);
 		}
 		scrollPane = new JScrollPane(contentPanel);
@@ -74,20 +88,26 @@ public class Mp3ToolsMainPanel extends JPanel {
 	public void onOpenFile(File file) {
 		System.out.println(file.getAbsolutePath());
 		try {
-			Mp3File mp3File = new Mp3File(file);
-			/*
-		tag.setComment("This is another comment " + new Date());
-		mp3File.removeId3v1Tag();
-		mp3File.removeId3v2Tag();
-		mp3File.setId3v2Tag(tag);
-		mp3File.removeCustomTag();
-		mp3File.save(file.getAbsolutePath().replaceAll(".mp3", "Two.mp3"));
-			 */
+			mp3File = new Mp3File(file);
 			setTag(mp3File.getId3v2Tag());
 		} catch (UnsupportedTagException | InvalidDataException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
+  public void onSaveFile(File file) {
+    ID3v2 tag = mp3File.getId3v2Tag();
+    tag = tag != null ? tag : new ID3v23Tag();
+    tag.setComment("This is another comment " + new Date());
+    mp3File.removeId3v1Tag();
+    mp3File.removeId3v2Tag();
+    mp3File.setId3v2Tag(tag);
+    mp3File.removeCustomTag();
+    try {
+      mp3File.save(file.getAbsolutePath());
+    } catch (NotSupportedException | IOException e) {
+      e.printStackTrace();
+    }
+  }
 
 }

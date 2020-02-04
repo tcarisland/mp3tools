@@ -7,16 +7,18 @@ public enum Label {
 	EXIT("general.exit"),
 	ABOUT("general.about"),
 	COPY("general.copy"),
+  SAVE("general.save"),
+  SAVE_AS("general.save_as"),
 	PASTE("general.paste");
-	
+
 	private final String key;
 
 	public String getLabel() {
 		return Labels.getLabel(key);
 	}
-	
+
 	Label(String key) {
 		this.key = key;
 	}
-	
+
 }

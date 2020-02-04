@@ -19,6 +19,14 @@
 		"no": "Åpne",
 		"en": "Open"
 	},
+	"general.save": {
+		"no": "Lagre",
+		"en": "Save"
+	},
+	"general.save_as": {
+		"no": "Lagre Som",
+		"en": "Save As"
+	},
 	"general.exit": {
 		"no": "Avslutt",
 		"en": "Exit"
