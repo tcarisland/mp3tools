@@ -2,5 +2,6 @@
 .classpath
 .settings
 .wtpmodules
+/.gradle/
 target
 bin

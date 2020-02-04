@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import com.mpatric.mp3agic.ID3v2;
 
 public class Mp3TagList {
-	
+
 	public static List<Object[]> getTagList(ID3v2 tag) {
 		return Arrays.asList(
 				getTagArray(tag))
@@ -16,8 +16,11 @@ public class Mp3TagList {
 				.filter(u -> !("" + u[0]).equals("-1"))
 				.collect(Collectors.toList());
 	}
-	
+
 	public static Object[][] getTagArray(ID3v2 tag) {
+	  if(tag == null) {
+      return new Object[][] { {} };
+	  }
 		return new Object[][] {
 				{tag.getFrameSets(), "FrameSets"},
 				{tag.getAudiofileUrl(), "AudiofileUrl"},
