@@ -109,8 +109,17 @@ public class Mp3ToolsMainPanel extends JPanel {
     tag = tag != null ? tag : new ID3v23Tag();
     tag.setComment("This is another comment " + new Date());
     for(Mp3TagTextField textField : textFields) {
-      if(textField.getTagFrame().getUpdater() != null) {
-        tag = textField.getTagFrame().getUpdater().updateTagData(tag, textField.getText());
+      TagFrame<?> tagFrame = textField.getTagFrame();
+      if(tagFrame.getUpdater() != null) {
+        if(tagFrame.getGenericType().equals(String.class)) {
+          try {
+            @SuppressWarnings("unchecked")
+            TagFrame<String> stringTagFrame = (TagFrame<String>) textField.getTagFrame();
+            tag = stringTagFrame.getUpdater().updateTagData(tag, textField.getText());
+          } catch(ClassCastException e) {
+            e.printStackTrace();
+          }
+        }
       }
     }
     mp3File.removeId3v2Tag();

@@ -12,7 +12,7 @@ import lombok.Data;
 public class TagFrame<E> {
 
   public static interface TagFrameExtractor<E> { E extractTagData(ID3v2 tag); }
-  public static interface TagFrameUpdater<E> { ID3v2 updateTagData(ID3v2 tag, String data); }
+  public static interface TagFrameUpdater<E> { ID3v2 updateTagData(ID3v2 tag, E data); }
 
   private final String name;
   private final TagFrameExtractor<E> extractor;
