@@ -1,9 +1,20 @@
+buildscript {
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.1'
+    }
+}
 
 plugins {
     id 'java'
     id 'maven-publish'
     id 'eclipse'
     id 'idea'
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+shadowJar {
+    mergeServiceFiles()
 }
 
 repositories {
@@ -27,6 +38,12 @@ group = 'org.tcarisland.tools'
 version = '1.0-SNAPSHOT'
 description = 'mp3tools'
 sourceCompatibility = '1.8'
+
+jar {
+    manifest {
+        attributes 'Main-Class':'org.tcarisland.tools.Mp3Tools'
+    }
+}
 
 publishing {
     publications {

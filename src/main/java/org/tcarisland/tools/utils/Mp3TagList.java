@@ -12,6 +12,7 @@ public class Mp3TagList {
 		return Arrays.asList(
 				getTagArray(tag))
 				.stream()
+				.filter(u -> u != null && u.length != 0 && ((Object[])u[0]).length != 0)
 				.filter(u -> u[0] != null)
 				.filter(u -> !("" + u[0]).equals("-1"))
 				.collect(Collectors.toList());
@@ -19,7 +20,7 @@ public class Mp3TagList {
 
 	public static Object[][] getTagArray(ID3v2 tag) {
 	  if(tag == null) {
-      return new Object[][] { {} };
+	    return null;
 	  }
 		return new Object[][] {
 				{tag.getFrameSets(), "FrameSets"},

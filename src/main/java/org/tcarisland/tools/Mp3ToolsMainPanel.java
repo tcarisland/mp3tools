@@ -15,9 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 
 import org.tcarisland.tools.utils.Mp3TagList;
 
@@ -29,17 +27,23 @@ import com.mpatric.mp3agic.UnsupportedTagException;
 public class Mp3ToolsMainPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private static Mp3ToolsMainPanel handle = null;
-	
+
 	public static Mp3ToolsMainPanel getInstance() {
 		handle = handle != null ? handle : new Mp3ToolsMainPanel();
 		return handle;
 	}
 
 	final Dimension labelSize = new Dimension(150, 20);
-	
+
+  private JScrollPane scrollPane;
+
 	public void setTag(ID3v2 tag) {
+	  if(scrollPane != null) {
+	    this.remove(scrollPane);
+	    scrollPane.invalidate();
+	  }
 		this.invalidate();
 		List<Object[]> data = Mp3TagList.getTagList(tag);
 		this.setLayout(new BorderLayout());
@@ -60,12 +64,13 @@ public class Mp3ToolsMainPanel extends JPanel {
 			panel.add(textField, BorderLayout.CENTER);
 			contentPanel.add(panel);
 		}
-		JScrollPane scrollPane = new JScrollPane(contentPanel);
+		scrollPane = new JScrollPane(contentPanel);
 		this.add(scrollPane, BorderLayout.CENTER);
+		scrollPane.revalidate();
 		this.revalidate();
 		this.repaint();
 	}
-	
+
 	public void onOpenFile(File file) {
 		System.out.println(file.getAbsolutePath());
 		try {
@@ -84,5 +89,5 @@ public class Mp3ToolsMainPanel extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	
+
 }
