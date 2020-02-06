@@ -68,7 +68,7 @@ public class Mp3ToolsMainPanel extends JPanel {
 		this.setLayout(new BorderLayout());
 		JPanel contentPanel = new JPanel();
 		contentPanel.setLayout(new GridLayout(data.size(), 1));
-		Border border = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.DARK_GRAY),BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		Border border = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(0xDA, 0xDA, 0xDA)),BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		for(TagFrame<?> tagFrame : data) {
 			JPanel panel = new JPanel(new BorderLayout());
       Mp3TagTextField textField = new Mp3TagTextField(tagFrame, tag);
