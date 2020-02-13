@@ -3,6 +3,7 @@ package org.tcarisland.tools.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jaudiotagger.tag.FieldDataInvalidException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.KeyNotFoundException;
@@ -19,7 +20,9 @@ public class Mp3TagList {
           TagFrameExtractor extractor = u -> u.getFirst(fieldKey);
           TagFrameUpdater updater = (a, b) -> {
             try {
-              a.setField(fieldKey, b);
+            	if(b != null && StringUtils.isNotEmpty(b) && !("" + b).equals("null")) {
+            		a.setField(fieldKey, b);
+            	}
             } catch (KeyNotFoundException | FieldDataInvalidException e) {
               e.printStackTrace();
             } return a;
