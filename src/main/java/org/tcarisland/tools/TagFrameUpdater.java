@@ -1,7 +1,9 @@
 package org.tcarisland.tools;
 
-import com.mpatric.mp3agic.ID3v2;
+import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
 
-public interface TagFrameUpdater<E> {
-  public abstract ID3v2 update(ID3v2 tag, E value);
+public interface TagFrameUpdater {
+
+  public abstract AbstractID3v2Tag update(AbstractID3v2Tag tag, String value);
+
 }
