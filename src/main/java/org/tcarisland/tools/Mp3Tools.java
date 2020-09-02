@@ -11,11 +11,11 @@ import org.tcarisland.tools.utils.Mp3ToolsSwingUtils;
  * Hello world!
  *
  */
-public class Mp3Tools 
+public class Mp3Tools
 {
     public static void main( String[] args ) {
     	LabelParser.parseLabels();
-    	Labels.init(Locale.forLanguageTag("no"));
+    	Labels.init(Locale.forLanguageTag("en"));
     	Mp3ToolsFrame frame = Mp3ToolsFrame.getInstance();
     	if(Constants.MAC_OS_X) {
     		Mp3ToolsSwingUtils.enableOSXFullscreen(frame);

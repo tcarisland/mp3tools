@@ -33,8 +33,6 @@ import org.jaudiotagger.tag.id3.ID3v23Tag;
 import org.tcarisland.tools.utils.Mp3TagList;
 import org.tcarisland.tools.utils.TagFrame;
 
-import lombok.Getter;
-
 public class Mp3ToolsMainPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -52,8 +50,11 @@ public class Mp3ToolsMainPanel extends JPanel {
 
 	private MP3File mp3File;
 
-	@Getter
 	private List<Mp3TagTextField> textFields = new ArrayList<>();
+
+	public List<Mp3TagTextField> getTextFields() {
+	  return this.textFields;
+	}
 
 	public void setTag(AbstractID3v2Tag tag) {
 		if (scrollPane != null) {
